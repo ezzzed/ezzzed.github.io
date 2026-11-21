@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eze | Desarrollo web y pixel art</title>
+<meta name="description" content="Eze: desarrollador de software en formación. Páginas web, bases de datos y pixel art.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%95%B6%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2b2dcb; --blue-deep:#1f21a3; --ink:#0d0f3a;
+  --yellow:#ffd23f; --pink:#ff5c8a; --cyan:#3de0d0; --paper:#f5f7ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--blue);color:var(--paper);font:400 1.125rem/1.65 Rubik,system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:"Press Start 2P",ui-monospace,Menlo,monospace;font-weight:400;line-height:1.4;margin:0}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
+
+/* barra superior */
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font-family:"Press Start 2P",monospace;font-size:1.1rem;text-decoration:none;color:var(--yellow)}
+.top nav{display:flex;gap:24px}
+.top nav a{text-decoration:none;font-weight:500}
+.top nav a:hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:3px}
+
+/* botones */
+.btn{display:inline-block;padding:15px 22px;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--ink);font:400 .72rem/1.3 "Press Start 2P",monospace;text-decoration:none;transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.btn.alt{background:var(--paper)}
+.btns{display:flex;flex-wrap:wrap;gap:18px;margin-top:36px}
+
+/* hero */ 
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding:56px 0 104px}
+.hero h1{font-size:clamp(1.55rem,4.2vw,2.9rem)}
+.hero p{max-width:34em;margin:28px 0 0;font-size:1.2rem}
+.stage{background:var(--yellow);border:4px solid var(--ink);box-shadow:12px 12px 0 var(--ink);padding:28px;overflow:hidden}
+.sprite{width:100%;aspect-ratio:1;background:url(data:image/png;base64,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) 0 0/900% 100% no-repeat;
+  image-rendering:pixelated;animation:frames 1.2s steps(9,jump-none) infinite}
+@keyframes frames{from{background-position:0 0}to{background-position:100% 0}}
+
+/* qué hago */
+.band{background:var(--paper);color:var(--ink);padding:88px 0}
+.band h2,.projects h2{font-size:clamp(1.2rem,3vw,1.9rem);margin-bottom:44px}
+.row{display:grid;grid-template-columns:1fr 1.4fr;gap:32px;padding:28px 0;border-top:4px solid var(--ink)}
+.row h3{font-size:.95rem}
+.row p{margin:0;max-width:36em}
+
+/* proyectos */
+.projects{padding:88px 0}
+.proj{background:var(--blue-deep);border-left:14px solid var(--c);padding:26px 30px;margin-bottom:26px}
+.proj h3{font-size:.95rem;margin-bottom:12px;color:var(--c)}
+.proj p{margin:0;max-width:40em}
+.proj ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:18px 0 0}
+.proj li{border:2px solid var(--c);padding:3px 12px;font-size:.95rem}
+
+/* contacto */
+.contact{background:var(--yellow);color:var(--ink);padding:88px 0}
+.contact h2{font-size:clamp(1.3rem,3.6vw,2.3rem)}
+.contact p{max-width:32em;margin:24px 0 0}
+.contact .btn{background:var(--ink);color:var(--yellow);border-color:var(--ink);box-shadow:5px 5px 0 var(--pink)}
+.contact .btn.alt{background:var(--paper);color:var(--ink);box-shadow:5px 5px 0 var(--pink)}
+.contact .btn:hover{box-shadow:2px 2px 0 var(--pink)}
+footer{padding:28px 0;font-size:.95rem}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:44px;padding-top:24px}
+  .stage{max-width:320px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .top nav{gap:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .sprite{animation:none}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#inicio">Eze</a>
+    <nav aria-label="Principal">
+      <a href="#hago">Qué hago</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="inicio" class="hero">
+    <div>
+      <h1>Soy Eze. Construyo webs y dibujo píxeles.</h1>
+      <p>Desarrollador de software en formación en el SENA. Hago páginas web, bases de datos y pixel art para videojuegos.</p>
+      <div class="btns">
+        <a class="btn" href="#proyectos">Ver proyectos</a>
+        <a class="btn alt" href="#contacto">Escríbeme</a>
+      </div>
+    </div>
+    <div class="stage" role="img" aria-label="Pixel art de un caballero con casco atacando"><div class="sprite"></div></div>
+  </main>
+</div>
+
+<section class="band" id="hago">
+  <div class="wrap">
+    <h2>Qué hago</h2>
+    <div class="row">
+      <h3>Desarrollo web</h3>
+      <p>Páginas con HTML, CSS y JavaScript, claras en el celular y listas para publicar en internet.</p>
+    </div>
+    <div class="row">
+      <h3>Bases de datos y servidores</h3>
+      <p>MySQL, Apache y Linux. Los monto en máquinas virtuales y en contenedores con Docker.</p>
+    </div>
+    <div class="row">
+      <h3>Git y GitHub</h3>
+      <p>Versiono el código y lo publico con GitHub Pages, sin servidores de pago.</p>
+    </div>
+    <div class="row">
+      <h3>Pixel art y sprites</h3>
+      <p>Personajes y animaciones de sprites para videojuegos y marcas pequeñas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="proyectos">
+  <div class="wrap">
+    <h2>Proyectos</h2>
+    <article class="proj" style="--c:var(--yellow)">
+      <h3>Game Test Pro</h3>
+      <p>Plataforma para gestionar pruebas de calidad (QA), desarrollada como proyecto del programa ADSO del SENA.</p>
+      <ul><li>Software</li><li>Bases de datos</li><li>QA</li></ul>
+    </article>
+    <article class="proj" style="--c:var(--pink)">
+      <h3>Servidor Ubuntu con Apache y MySQL</h3>
+      <p>Montaje completo en una máquina virtual con VirtualBox y luego en contenedores Docker, con pruebas de que cada servicio responde.</p>
+      <ul><li>Ubuntu</li><li>Apache</li><li>MySQL</li><li>Docker</li></ul>
+    </article>
+    <article class="proj" style="--c:var(--cyan)">
+      <h3>Sprites y pixel art</h3>
+      <p>Personajes y animaciones cuadro por cuadro. Hago encargos a la medida.</p>
+      <ul><li>Pixel art</li><li>Animación</li><li>Videojuegos</li></ul>
+    </article>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <h2>¿Tienes una idea? Hagámosla.</h2>
+    <p>Cuéntame qué necesitas: una página, una base de datos o un personaje. Te respondo con un plan claro.</p>
+    <div class="btns">
+      <a class="btn" href="mailto:gojan1932@gmail.com">Escribir un correo</a>
+      <a class="btn alt" href="https://github.com/ezzzed">Ver mi GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">Hecho por Eze y publicado con GitHub Pages.</footer>
+
+</body>
+</html>
